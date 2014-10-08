@@ -16,5 +16,5 @@ hasRepeatedBlocks s =
 
 challenge8 :: IO String
 challenge8 = do
-    ciphertexts <- lines <$> readFile "Set1/data/1.8.txt"
+    ciphertexts <- lines <$> readFile "data/8.txt"
     return $ head $ filter hasRepeatedBlocks ciphertexts

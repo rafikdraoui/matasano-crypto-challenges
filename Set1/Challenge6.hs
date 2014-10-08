@@ -1,6 +1,5 @@
 module Set1.Challenge6 where
 
-import Control.Applicative ((<$>))
 import Data.Bits (popCount, xor)
 import Data.Char (ord)
 import Data.List (minimumBy, transpose)
@@ -8,7 +7,7 @@ import Data.Ord (comparing)
 
 import Set1.Challenge3 (crackSingleByteXor)
 import Set1.Challenge5 (repeatXorEncrypt)
-import Set1.Utils (asciiToHex, hexToAscii, splitInGroupsOf, b64decode)
+import Set1.Utils (asciiToHex, hexToAscii, splitInGroupsOf, b64decodeFile)
 
 
 numDifferingBits :: Int -> Int -> Int
@@ -53,7 +52,7 @@ findKeySize cipher =
 
 challenge6 :: IO (String, String)
 challenge6 = do
-    cipher <- b64decode . concat . lines <$> readFile "Set1/data/1.6.txt"
+    cipher <- b64decodeFile "data/6.txt"
     let keySize = findKeySize cipher
     let transposedBlocks = transpose $ splitInGroupsOf keySize cipher
     let key = map (crackSingleByteXor . asciiToHex) transposedBlocks

@@ -1,5 +1,6 @@
 module Set1.Utils where
 
+import Control.Applicative ((<$>))
 import Data.Char (chr, isPrint, isSpace, ord)
 import Data.Word (Word8)
 import Numeric (readHex, showHex)
@@ -69,3 +70,7 @@ b64decode :: String -> String
 b64decode s = case B64.decode (s2bs s) of
     Left e -> error $ "b64decode: " ++ e
     Right x -> bs2s x
+
+
+b64decodeFile :: FilePath -> IO String
+b64decodeFile filename = b64decode . concat . lines <$> readFile filename

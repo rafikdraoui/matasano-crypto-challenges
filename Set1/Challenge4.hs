@@ -17,5 +17,5 @@ findSecret ciphertexts =
 
 challenge4 :: IO (HexString, String)
 challenge4 = do
-    ciphertexts <- lines <$> readFile "Set1/data/1.4.txt"
+    ciphertexts <- lines <$> readFile "data/4.txt"
     return $ findSecret ciphertexts
