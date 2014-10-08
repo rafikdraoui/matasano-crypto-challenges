@@ -7,18 +7,24 @@ import qualified Codec.Crypto.AES as AES
 import Set1.Utils (bs2s, s2bs, b64decodeFile)
 
 
-decrypt :: String -> String -> String
-decrypt key cipher =
+runECB :: AES.Direction -> String -> String -> String
+runECB dir key cipher =
     let key' = s2bs key
         cipher' = s2bs cipher
         mode = AES.ECB
-        direction = AES.Decrypt
         iv = B.replicate 16 0
     in
-        bs2s $ AES.crypt' mode key' iv direction cipher'
+        bs2s $ AES.crypt' mode key' iv dir cipher'
+
+
+encryptECB :: String -> String -> String
+encryptECB = runECB AES.Encrypt
+
+decryptECB :: String -> String -> String
+decryptECB = runECB AES.Decrypt
 
 
 challenge7 :: IO String
 challenge7 = do
     cipher <- b64decodeFile "data/7.txt"
-    return $ decrypt "YELLOW SUBMARINE" cipher
+    return $ decryptECB "YELLOW SUBMARINE" cipher
