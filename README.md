@@ -13,6 +13,7 @@ regarding those!
 
 * [base64-bytestring](http://hackage.haskell.org/package/base64-bytestring)
 * [AES](http://hackage.haskell.org/package/AES)
+* [MonadRandom](http://hackage.haskell.org/package/MonadRandom)
 
 For testing:
 
