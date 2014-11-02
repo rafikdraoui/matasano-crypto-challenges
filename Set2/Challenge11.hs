@@ -3,11 +3,8 @@ module Set2.Challenge11 where
 import Control.Monad (liftM, replicateM)
 import Control.Monad.Random (Rand, RandomGen, getRandomR, uniform)
 
-import Set1.Challenge7 (encryptECB)
 import Set1.Challenge8 (hasRepeatedBlocks)
-import Set1.Utils (splitInGroupsOf)
-import Set2.Challenge9 (pkcs7Padding)
-import Set2.Challenge10 (encryptCBC)
+import Set2.Challenge10 (encryptCBC, encryptECB)
 
 
 data EncryptionChoice = ECB | CBC
@@ -26,13 +23,12 @@ encryptionOracle' input = do
     prefix <- getRandomR (5, 10) >>= generateRandomBytes
     suffix <- getRandomR (5, 10) >>= generateRandomBytes
     let plaintext = prefix ++ input ++ suffix
-    let paddedPlaintext = concatMap (pkcs7Padding 16) $ splitInGroupsOf 16 plaintext
 
     key <- generateRandomBytes 16
     cipherMode <- uniform [ECB, CBC]
     let cipherFunction = if cipherMode == ECB then encryptECB else encryptCBC
 
-    return (cipherFunction key paddedPlaintext, cipherMode)
+    return (cipherFunction key plaintext, cipherMode)
 
 
 -- Our real encryption oracle that only returns the ciphertext

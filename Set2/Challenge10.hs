@@ -1,13 +1,27 @@
 module Set2.Challenge10 where
 
 import Set1.Challenge2 (xor')
-import Set1.Challenge7 (decryptECB, encryptECB)
+import qualified Set1.Challenge7
 import Set1.Utils (b64decodeFile, splitInGroupsOf)
 
 import Set2.Challenge9 (pkcs7Padding)
 
 -- Reference:
 -- https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher-block_chaining_.28CBC.29
+
+
+-- Versions of ECB encryption that pad the input to a block size of 16
+
+paddedECB :: (String -> String -> String) -> String -> String -> String
+paddedECB func key text = func key paddedText
+    where paddedText = concatMap (pkcs7Padding 16) $ splitInGroupsOf 16 text
+
+encryptECB :: String -> String -> String
+encryptECB = paddedECB Set1.Challenge7.encryptECB
+
+decryptECB :: String -> String -> String
+decryptECB = paddedECB Set1.Challenge7.decryptECB
+
 
 
 data CBCRoundOutcome = CBCRoundOutcome {
@@ -59,7 +73,7 @@ mapAccum f acc (x:xs) = y:ys
 runCBC :: (String -> String -> String -> CBCRoundOutcome)
        -> String -> String -> String
 runCBC roundFunction key text =
-    let blocks = map (pkcs7Padding 16) $ splitInGroupsOf 16 text
+    let blocks = splitInGroupsOf 16 text
         iv = replicate 16 '\0'
     in
         concat $ mapAccum (roundFunction key) iv blocks
