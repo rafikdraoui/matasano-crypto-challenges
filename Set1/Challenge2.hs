@@ -3,7 +3,7 @@ module Set1.Challenge2 where
 import qualified Data.Bits as Bits
 import qualified Data.ByteString as B
 
-import Set1.Utils (asciiToHex, hexToAscii, hexlify, unhexlify, HexString)
+import Utils (asciiToHex, hexToAscii, hexlify, unhexlify, HexString)
 
 
 xor :: HexString -> HexString -> HexString

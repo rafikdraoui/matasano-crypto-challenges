@@ -4,7 +4,7 @@ import qualified Data.ByteString as B
 
 import qualified Codec.Crypto.AES as AES
 
-import Set1.Utils (bs2s, s2bs, b64decodeFile)
+import Utils (bs2s, s2bs, b64decodeFile)
 
 
 runECB :: AES.Direction -> String -> String -> String

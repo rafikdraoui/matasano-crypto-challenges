@@ -1,4 +1,4 @@
-module Set1.Utils where
+module Utils where
 
 import Control.Applicative ((<$>))
 import Data.Char (chr, isPrint, isSpace, ord)

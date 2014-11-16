@@ -8,7 +8,7 @@ import qualified Data.ByteString as B
 import Test.QuickCheck
 
 import Set1.Challenge7 (encryptECB, decryptECB)
-import Set1.Utils (unhexlify, hexlify)
+import Utils (unhexlify, hexlify)
 
 
 -- Generators

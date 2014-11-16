@@ -2,7 +2,7 @@ module Set2.Challenge10 where
 
 import Set1.Challenge2 (xor')
 import qualified Set1.Challenge7
-import Set1.Utils (b64decodeFile, splitInGroupsOf)
+import Utils (b64decodeFile, splitInGroupsOf)
 
 import Set2.Challenge9 (pkcs7Padding)
 

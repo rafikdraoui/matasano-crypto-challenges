@@ -19,7 +19,7 @@ import qualified Data.List as L
 import qualified Data.Map.Strict as Map
 
 import Set1.Challenge2 (xor)
-import Set1.Utils (isPrint', unhexlify, bs2s, hexToAscii, HexString)
+import Utils (isPrint', unhexlify, bs2s, hexToAscii, HexString)
 
 
 -- Average letter frequencies for English-language text.

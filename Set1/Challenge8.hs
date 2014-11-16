@@ -3,7 +3,7 @@ module Set1.Challenge8 where
 import Control.Applicative ((<$>))
 import Data.List (nub)
 
-import Set1.Utils (splitInGroupsOf)
+import Utils (splitInGroupsOf)
 
 
 hasRepeatedBlocks :: String -> Bool

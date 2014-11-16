@@ -3,7 +3,7 @@ module Set1.Challenge4 where
 import Control.Applicative ((<$>))
 
 import Set1.Challenge3 (crackSingleByteXor, singleCharDecrypt)
-import Set1.Utils (isPrint', hexToAscii, HexString)
+import Utils (isPrint', hexToAscii, HexString)
 
 
 findSecret :: [HexString] -> (HexString, String)

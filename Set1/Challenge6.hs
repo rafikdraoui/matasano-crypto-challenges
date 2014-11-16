@@ -7,7 +7,7 @@ import Data.Ord (comparing)
 
 import Set1.Challenge3 (crackSingleByteXor)
 import Set1.Challenge5 (repeatXorEncrypt)
-import Set1.Utils (asciiToHex, hexToAscii, splitInGroupsOf, b64decodeFile)
+import Utils (asciiToHex, hexToAscii, splitInGroupsOf, b64decodeFile)
 
 
 numDifferingBits :: Int -> Int -> Int

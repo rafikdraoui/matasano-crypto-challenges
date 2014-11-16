@@ -8,7 +8,7 @@ import Set1.Challenge3 (crackSingleByteXor, singleCharDecrypt)
 import Set1.Challenge4 (challenge4)
 import Set1.Challenge5 (repeatXorEncrypt)
 import Set1.Challenge6 (challenge6, hammingDistance)
-import Set1.Utils (hexToAscii, isPrint')
+import Utils (hexToAscii, isPrint')
 
 
 test1 :: Test
