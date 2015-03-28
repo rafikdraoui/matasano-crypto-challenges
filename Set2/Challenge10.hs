@@ -14,7 +14,7 @@ import Set2.Challenge9 (pkcs7Padding)
 
 paddedECB :: (String -> String -> String) -> String -> String -> String
 paddedECB func key text = func key paddedText
-    where paddedText = concatMap (pkcs7Padding 16) $ splitInGroupsOf 16 text
+    where paddedText = pkcs7Padding 16 text
 
 encryptECB :: String -> String -> String
 encryptECB = paddedECB Set1.Challenge7.encryptECB
