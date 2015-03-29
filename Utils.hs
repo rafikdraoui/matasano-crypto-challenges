@@ -74,3 +74,23 @@ b64decode s = case B64.decode (s2bs s) of
 
 b64decodeFile :: FilePath -> IO String
 b64decodeFile filename = b64decode . concat . lines <$> readFile filename
+
+
+-- Replace every occurrences of `target` by `repl` in a string
+replace :: Char -> String -> String -> String
+replace target repl = concatMap (f target repl)
+    where f t r c = if c == t then r else [c]
+
+
+-- Break a list into pieces separated by the delimiter element `delim`
+-- Examples:
+--      splitOn ';' "Hello;World;Bonjour" == ["Hello", "World", "Bonjour"]
+--      splitOn 3 [1, 2, 3, 4 ,5, 4, 3, 2, 1] == [[1, 2], [4, 5, 4], [2, 1]]
+splitOn :: Eq a => a -> [a] -> [[a]]
+splitOn delim s =
+    let (h, t) = break (== delim) s
+        t' = case t of
+            [] -> []
+            _ -> splitOn delim $ tail t
+    in
+        filter (/= []) $ h : t'

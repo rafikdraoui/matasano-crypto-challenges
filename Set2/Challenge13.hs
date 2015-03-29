@@ -6,6 +6,8 @@ import qualified Data.Map.Strict as Map
 
 import Set2.Challenge9 (pkcs7Padding)
 import Set2.Challenge10 (encryptECB, decryptECB)
+import Utils (replace, splitOn)
+
 
 data Profile = Profile {
     email :: String,
@@ -15,11 +17,6 @@ data Profile = Profile {
 
 
 {- Profile encoding -}
-
--- Replace every occurrences of `target` by `repl` in a string
-replace :: Char -> String -> String -> String
-replace target repl = concatMap (f target repl)
-    where f t r c = if c == t then r else [c]
 
 -- URL-quote escaping for characters '=' and '&'
 escape :: String -> String
@@ -33,18 +30,9 @@ encode p = "email=" ++ escape (email p) ++
 
 {- Profile decoding -}
 
-splitAtElem :: Eq a => a -> [a] -> [[a]]
-splitAtElem c s =
-    let (h, t) = break (== c) s
-        t' = case t of
-            [] -> []
-            _ -> splitAtElem c $ tail t
-    in
-        filter (/= []) $ h : t'
-
 isValid :: String -> Bool
 isValid s =
-    let s' = splitAtElem '=' <$> splitAtElem '&' s
+    let s' = splitOn '=' <$> splitOn '&' s
     in all (\x -> length x == 2) s'
 
 -- Returns `val` wrapped in Just if `cond` is True, otherwise returns Nothing
@@ -54,7 +42,7 @@ maybeValue cond val = if cond then Just val else Nothing
 -- Decode the string to a "raw" key-value mapping
 decode' :: String -> Maybe (Map.Map String String)
 decode' s = maybeValue (isValid s) $
-    let keyValues = splitAtElem '=' <$> splitAtElem '&' s
+    let keyValues = splitOn '=' <$> splitOn '&' s
 
         -- The pattern-match will never fail since `isValid s == True`
         keyValueTuples = map (\[x, y] -> (x, y)) keyValues
